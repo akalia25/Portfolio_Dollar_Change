@@ -21,6 +21,9 @@ def read_file():
 def daily_change(df):
 	stocks_df = pd.DataFrame()
 	grand_total = 0
+	grand_month_total = 0
+	grand_week_total = 0
+	grand_day_total = 0
 	for index, x in enumerate(df.stock):
 		try:
 			stock = yf.Ticker(x)
@@ -38,12 +41,22 @@ def daily_change(df):
 			stocks_df = stocks_df.append(tempdf, sort='False')
 
 			grand_total = grand_total + total_gain
+			grand_month_total = grand_month_total + month_gain
+			grand_week_total = grand_week_total + week_gain
+			grand_day_total = grand_day_total + day_gain
+
 		except:
 			print("Incorrect stock entered " + x)
 			pass
 	grand_total = grand_total.round(2)
+	grand_month_total = grand_month_total.round(2)
+	grand_week_total = grand_week_total.round(2)
+	grand_day_total = grand_day_total.round(2)
+
 	print("|-------------------------------------|")
-	print(f'In Total you have made ${grand_total} !!')
+	print(f'In Total you have made ${grand_total}\nThis Month you made ${grand_month_total}\nThis'
+		  f' Week you made ${grand_week_total}\nToday you made '
+		  f'${grand_day_total}')
 
 
 def main():
